@@ -9,6 +9,10 @@ Window::~Window() {
 	glfwTerminate();
 }
 
+GLFWwindow* Window::getWindow() {
+	return this->window;
+}
+
 void Window::initWindow(int width, int height) {
     if (!glfwInit()) {
 		fprintf(stderr, "Failed to initialize GLFW\n");
@@ -41,7 +45,7 @@ void Window::initWindow(int width, int height) {
 }
 
 void Window::clearWindow() {
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.5f, 0.2f, 0.2f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

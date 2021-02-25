@@ -12,6 +12,6 @@ View::View(int width, int heigth) {
         glm::scale(glm::vec3(2./width, 2./heigth, 1.f));
 }
 
-glm::mat4 View::getProjection() {
-    return this->projection;
+glm::mat4* View::getProjection() {
+    return &(this->projection);
 }

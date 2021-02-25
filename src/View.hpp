@@ -8,7 +8,7 @@ class View {
 public:
     View(int width, int heigth);
 
-    glm::mat4 getProjection();
+    glm::mat4* getProjection();
 };
 
 #endif

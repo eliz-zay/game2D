@@ -3,5 +3,6 @@ CMakeCache.txt
 cmake_install.cmake
 resources/
 src/.vscode
+.vscode
 game
 .DS_Store

@@ -6,8 +6,9 @@ layout(location = 1) in vec2 aTextureProjection;
 out vec2 textureProjection;
 
 uniform mat4 projection;
+uniform mat4 transform;
 
 void main() {
-	gl_Position = projection * vec4(vertexPos, 1);
+	gl_Position = projection * transform * vec4(vertexPos, 1);
 	textureProjection = aTextureProjection;
 }
