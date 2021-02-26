@@ -7,23 +7,25 @@
 
 #include <glm/glm.hpp>
 
-#include "Helper.cpp"
-#include "Shader.cpp"
+#include <src/Helper.hpp>
+#include <src/Shader.hpp>
 
 class GLObject {
-    GLfloat* texturePosition;
-    GLuint* vertexDistribution;
-    glm::mat4 transformMatrix;
+    protected:
+        GLfloat* texturePosition;
+        GLuint* vertexDistribution;
+        glm::mat4 transformMatrix;
 
-    Shader shader;
-    Helper::RectCoordinates currentCoord;
-public:
-    GLObject(glm::vec2 initPosition, std::string textureSource);
-    ~GLObject();
+        Shader shader;
+        Helper::RectCoordinates currentCoord;
 
-    void initObject(glm::mat4* projection);
-    void move(GLFWwindow* window);
-    void draw();
+    public:
+        GLObject(glm::vec2 initPosition, std::string textureSource);
+        ~GLObject();
+
+        Helper::RectCoordinates getCurrentCoord();
+        void initObject(glm::mat4* projection);
+        void draw();
 };
 
 #endif

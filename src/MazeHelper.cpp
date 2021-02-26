@@ -6,9 +6,10 @@
 
 #include <glm/glm.hpp>
 
-#include "MazeHelper.hpp"
+#include <src/MazeHelper.hpp>
 
-#include "Helper.cpp"
+#include <src/Helper.cpp>
+#include <src/Tile.cpp>
 
 std::vector<std::vector<char> > MazeHelper::parseMazeData() {
     std::vector<std::vector<char> > mazeData;
@@ -29,23 +30,23 @@ std::vector<std::vector<char> > MazeHelper::parseMazeData() {
     return mazeData;
 }
 
-std::vector<GLObject*> MazeHelper::mazeDataToGLObjects(
+std::vector<Tile*> MazeHelper::mazeDataToGLObjects(
     std::vector<std::vector<char> > mazeData,
     std::map<std::string, std::string> textureSources
 ) {
     // Here all tiles have the same size
     Helper::TextureData textureData = Helper::parseTexture(textureSources["floor"]);
 
-    std::vector<GLObject*> objects;
+    std::vector<Tile*> objects;
     for (int i = 0; i < mazeData.size(); i++) {
         for (int j = 0; j < mazeData[i].size(); j++) {
             switch (mazeData[i][j]) {
                 case ('.'): {
-                    objects.push_back(new GLObject(glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), textureSources["floor"])); 
+                    objects.push_back(new Tile(glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), textureSources["floor"], false)); 
                     break; 
                 }
                 case ('#'): {
-                    objects.push_back(new GLObject(glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), textureSources["wall"])); 
+                    objects.push_back(new Tile(glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), textureSources["wall"], true)); 
                     break;
                 }
             }
