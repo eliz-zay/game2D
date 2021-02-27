@@ -24,8 +24,8 @@ class GLObject {
         ~GLObject();
 
         Helper::RectCoordinates getCurrentCoord();
-        void initObject(glm::mat4* projection);
-        void draw();
+        virtual void initObject(glm::mat4* projection);
+        virtual void draw();
 };
 
 #endif

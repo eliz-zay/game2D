@@ -4,12 +4,7 @@
 
 #include <src/GLObject.cpp>
 
-Tile::Tile(glm::vec2 initPosition, std::string textureSource, bool wall):
+Tile::Tile(glm::vec2 initPosition, std::string textureSource):
     GLObject(initPosition, textureSource)
 {
-    this->wall = wall;
-}
-
-bool Tile::isWall() {
-    return this->wall;
 }

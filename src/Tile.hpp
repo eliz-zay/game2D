@@ -4,12 +4,8 @@
 #include "GLObject.hpp"
 
 class Tile: public GLObject {
-        bool wall;
-        
-    public:
-        Tile(glm::vec2 initPosition, std::string textureSource, bool wall);
-
-        bool isWall();
+        public:
+            Tile(glm::vec2 initPosition, std::string textureSource);
 };
 
 #endif

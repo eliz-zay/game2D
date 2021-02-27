@@ -2,12 +2,14 @@
 
 #include <src/Sprite.hpp>
 
-#include <src/Tile.cpp>
+#include <src/BaseTile.cpp>
+#include <src/TrapTile.cpp>
 
-Sprite::Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<Tile*> tiles):
-    GLObject(initPosition, textureSource) 
+Sprite::Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<BaseTile*> baseTiles, std::vector<TrapTile*> trapTiles):
+    GLObject(initPosition, textureSource)
 {
-    this->tiles = tiles;
+    this->baseTiles = baseTiles;
+    this->trapTiles = trapTiles;
 }
 
 void Sprite::move(GLFWwindow* window) {
@@ -43,7 +45,7 @@ bool Sprite::isCollision(int dx, int dy) {
         this->currentCoord.x0 + dx, this->currentCoord.y0 + dy,
         this->currentCoord.x1 + dx, this->currentCoord.y1 + dy
     });
-    for (auto pTile: this->tiles) {
+    for (auto pTile: this->baseTiles) {
         if (pTile->isWall()) {
             Helper::RectCoordinates wallCoord = pTile->getCurrentCoord();
             if (

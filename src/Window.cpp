@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <exception>
 
 #include "Window.hpp"
 
@@ -15,8 +16,7 @@ GLFWwindow* Window::getWindow() {
 
 void Window::initWindow(int width, int height) {
     if (!glfwInit()) {
-		fprintf(stderr, "Failed to initialize GLFW\n");
-		exit(0); //TODO: throw exception
+		throw std::runtime_error("Window: Failed to initialize GLFW");
 	}
 
     glfwWindowHint(GLFW_SAMPLES, 4);
@@ -26,19 +26,15 @@ void Window::initWindow(int width, int height) {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	window = glfwCreateWindow(width, height, "My window", NULL, NULL);
-	if (window == NULL ){
-		fprintf(stderr, "Failed to open GLFW window\n" );
-		glfwTerminate();
-		exit(0);  //TODO: throw exception
+	if (window == NULL ) {
+		throw std::runtime_error("Window: Failed to open GLFW window");
 	}
 
 	glfwMakeContextCurrent(window);
 
 	glewExperimental = true;
 	if (glewInit() != GLEW_OK) {
-		fprintf(stderr, "Failed to initialize GLEW\n");
-		glfwTerminate();
-		exit(0); //TODO: throw exception
+		throw std::runtime_error("Window: Failed to initialize GLEW");
 	}
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);

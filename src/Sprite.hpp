@@ -4,15 +4,19 @@
 #include <vector>
 
 #include <src/GLObject.hpp>
-#include <src/Tile.hpp>
+#include <src/BaseTile.hpp>
+#include <src/TrapTile.hpp>
+
+class TrapTile;
 
 class Sprite: public GLObject {
-        std::vector<Tile*> tiles;
+        std::vector<BaseTile*> baseTiles;
+        std::vector<TrapTile*> trapTiles;
         
         bool isCollision(int dx, int dy);
         
     public:
-        Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<Tile*> tiles);
+        Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<BaseTile*> baseTiles, std::vector<TrapTile*> trapTiles);
 
         void move(GLFWwindow* window);
 };

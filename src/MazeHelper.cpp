@@ -9,7 +9,8 @@
 #include <src/MazeHelper.hpp>
 
 #include <src/Helper.cpp>
-#include <src/Tile.cpp>
+#include <src/BaseTile.cpp>
+#include <src/TrapTile.cpp>
 
 std::vector<std::vector<char> > MazeHelper::parseMazeData() {
     std::vector<std::vector<char> > mazeData;
@@ -19,7 +20,7 @@ std::vector<std::vector<char> > MazeHelper::parseMazeData() {
     file.open("resources/maze.txt");
     if (!file.is_open()) {
         std::cout << "Helper: Could not open file" << std::endl;
-        // TODO: throw exception
+        throw std::invalid_argument("MazeHelper: Could not open file");
     }
 
     while (std::getline(file, line)) {
@@ -30,36 +31,44 @@ std::vector<std::vector<char> > MazeHelper::parseMazeData() {
     return mazeData;
 }
 
-std::vector<Tile*> MazeHelper::mazeDataToGLObjects(
+void MazeHelper::mazeDataToGLObjects(
     std::vector<std::vector<char> > mazeData,
-    std::map<std::string, std::string> textureSources
+    std::map<std::string, std::string> textureSources,
+    std::vector<BaseTile*>* baseTiles,
+    std::vector<TrapTile*>* trapTiles
 ) {
     // Here all tiles have the same size
     Helper::TextureData textureData = Helper::parseTexture(textureSources["floor"]);
 
-    std::vector<Tile*> objects;
     for (int i = 0; i < mazeData.size(); i++) {
         for (int j = 0; j < mazeData[i].size(); j++) {
             switch (mazeData[i][j]) {
                 case ('.'): {
-                    objects.push_back(new Tile(glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), textureSources["floor"], false)); 
+                    (*baseTiles).push_back(new BaseTile(glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), textureSources["floor"], false));
                     break; 
                 }
                 case ('#'): {
-                    objects.push_back(new Tile(glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), textureSources["wall"], true)); 
+                    (*baseTiles).push_back(new BaseTile(glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), textureSources["wall"], true)); 
+                    break;
+                }
+                case ('T'): {
+                    (*trapTiles).push_back(new TrapTile(
+                        glm::vec2(j * textureData.width * 1.f, i * textureData.height * 1.f), 
+                        textureSources["trap"],
+                        textureSources["floor"]
+                    ));
                     break;
                 }
             }
         }
     }
-
-    return objects;
 }
 
 std::map<std::string, std::string> MazeHelper::getTextureSources() {
     std::map<std::string, std::string> textureSources;
-    textureSources.insert({"floor", "resources/floor/center_1.png"});
-	textureSources.insert({"wall", "resources/walls/wall_1.png"});
+    textureSources.insert({"floor", "resources/floor.jpg"});
+	textureSources.insert({"wall", "resources/wall.jpg"});
+    textureSources.insert({"trap", "resources/chemicals.png"});
 
     return textureSources;
 }
