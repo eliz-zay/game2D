@@ -5,10 +5,9 @@
 #include <src/TrapTile.hpp>
 
 namespace MazeHelper {
-    std::vector<std::vector<char> > parseMazeData();
+    std::vector<std::vector<char> > parseMazeData(std::string mazeFile);
     void mazeDataToGLObjects(
-        std::vector<std::vector<char> > mazeData, 
-        std::map<std::string, std::string> textureSources,
+        std::vector<std::vector<char> > mazeData,
         std::vector<BaseTile*>* baseTiles,
         std::vector<TrapTile*>* trapTiles
     );

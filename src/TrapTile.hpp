@@ -8,12 +8,12 @@
 class Sprite;
 
 class TrapTile: public Tile {
+    private:
         BaseTile altTile;
 
     public:
         TrapTile(glm::vec2 initPosition, std::string textureSource, std::string altTextureSource);
 
-        virtual void initObject(glm::mat4* projection);
         virtual void draw(Sprite* mainHero);
 };
 

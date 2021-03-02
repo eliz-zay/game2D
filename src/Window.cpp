@@ -6,12 +6,10 @@
 
 #include "Window.hpp"
 
-Window::~Window() {
-	glfwTerminate();
-}
+GLFWwindow* Window::window = nullptr;
 
 GLFWwindow* Window::getWindow() {
-	return this->window;
+	return Window::window;
 }
 
 void Window::initWindow(int width, int height) {
@@ -25,31 +23,39 @@ void Window::initWindow(int width, int height) {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(width, height, "My window", NULL, NULL);
-	if (window == NULL ) {
+	Window::window = glfwCreateWindow(width, height, "My window", NULL, NULL);
+	if (Window::window == NULL ) {
 		throw std::runtime_error("Window: Failed to open GLFW window");
 	}
 
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(Window::window);
 
 	glewExperimental = true;
 	if (glewInit() != GLEW_OK) {
 		throw std::runtime_error("Window: Failed to initialize GLEW");
 	}
 
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	glfwSetInputMode(Window::window, GLFW_STICKY_KEYS, GL_TRUE);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glClearColor(0.5f, 0.2f, 0.2f, 0.0f);
 }
 
 void Window::clearWindow() {
-	glClearColor(0.5f, 0.2f, 0.2f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::refreshWindow() {
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(Window::window);
 	glfwPollEvents();
 }
 
 bool Window::shouldBeOpened() {
-    return glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0;
+    return glfwGetKey(Window::window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0;
+}
+
+void Window::closeWindow() {
+	glfwTerminate();
 }

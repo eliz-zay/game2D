@@ -10,6 +10,7 @@
 class TrapTile;
 
 class Sprite: public GLObject {
+    private:
         std::vector<BaseTile*> baseTiles;
         std::vector<TrapTile*> trapTiles;
         

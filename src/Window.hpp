@@ -6,17 +6,19 @@
 #include <OpenGL/glu.h>
 
 class Window {
-        GLFWwindow* window;
+    private:
+        static GLFWwindow* window;
+
+        Window();
         
     public:
-        ~Window();
-
-        GLFWwindow* getWindow();
+        static GLFWwindow* getWindow();
         
-        void initWindow(int width, int height);
-        void clearWindow();
-        bool shouldBeOpened();
-        void refreshWindow();
+        static void initWindow(int width, int height);
+        static void clearWindow();
+        static bool shouldBeOpened();
+        static void refreshWindow();
+        static void closeWindow();
 };
 
 #endif

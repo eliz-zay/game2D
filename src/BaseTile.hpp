@@ -4,6 +4,7 @@
 #include <src/Tile.hpp>
 
 class BaseTile: public Tile {
+    private:
         bool wall;  
         
     public:

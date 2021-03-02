@@ -4,12 +4,15 @@
 #include <glm/glm.hpp>
 
 class View {
-        glm::mat4 projection;
+    private:
+        static int width, height;
+        static glm::mat4 projection;
         
-    public:
-        View(int width, int heigth);
+        View();
 
-        glm::mat4* getProjection();
+    public:
+        static void setResolution(int width, int height);
+        static glm::mat4* getProjection();
 };
 
 #endif

@@ -6,7 +6,7 @@
 #include <src/TrapTile.cpp>
 
 Sprite::Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<BaseTile*> baseTiles, std::vector<TrapTile*> trapTiles):
-    GLObject(initPosition, textureSource)
+    GLObject(initPosition, textureSource, "src/vertexShader.glsl", "src/fragmentShader.glsl")
 {
     this->baseTiles = baseTiles;
     this->trapTiles = trapTiles;

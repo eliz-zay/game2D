@@ -12,12 +12,6 @@ TrapTile::TrapTile(glm::vec2 initPosition, std::string textureSource, std::strin
 {
 }
 
-void TrapTile::initObject(glm::mat4* projection) {
-    this->shader.setUniform("projection", projection);
-    this->shader.setUniform("transform", &(this->transformMatrix));
-    this->altTile.initObject(projection);
-}
-
 void TrapTile::draw(Sprite* mainHero) {
     GLfloat x1 = (this->currentCoord.x1 + this->currentCoord.x0) / 2;
     GLfloat y1 = (this->currentCoord.y1 + this->currentCoord.y0) / 2;

@@ -13,18 +13,16 @@
 class GLObject {
     protected:
         GLfloat* texturePosition;
-        GLuint* vertexDistribution;
         glm::mat4 transformMatrix;
 
         Shader shader;
         Helper::RectCoordinates currentCoord;
 
     public:
-        GLObject(glm::vec2 initPosition, std::string textureSource);
+        GLObject(glm::vec2 initPosition, std::string textureSource, std::string vertexShader, std::string fragShader);
         ~GLObject();
 
         Helper::RectCoordinates getCurrentCoord();
-        virtual void initObject(glm::mat4* projection);
         virtual void draw();
 };
 

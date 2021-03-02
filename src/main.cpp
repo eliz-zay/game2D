@@ -11,42 +11,37 @@
 #include <src/BaseTile.cpp>
 #include <src/TrapTile.cpp>
 #include <src/MazeHelper.cpp>
+#include <src/Label.cpp>
 
 int main() {
 	try {
-		View view(WINDOW_WIDTH, WINDOW_HEIGHT);
+		View::setResolution(WINDOW_WIDTH, WINDOW_HEIGHT);
+		Window::initWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-		Window window;
-		window.initWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
+		// std::vector<BaseTile*> baseTiles;
+		// std::vector<TrapTile*> trapTiles;
+		// std::vector<std::vector<char> > mazeData = MazeHelper::parseMazeData("resources/maze/maze_level_2.txt");
+		// MazeHelper::mazeDataToGLObjects(mazeData, &baseTiles, &trapTiles);
 
-		std::vector<std::vector<char> > mazeData = MazeHelper::parseMazeData();
-		std::map<std::string, std::string> textureSources = MazeHelper::getTextureSources();
-		std::vector<BaseTile*> baseTiles;
-		std::vector<TrapTile*> trapTiles;
-		MazeHelper::mazeDataToGLObjects(mazeData, textureSources, &baseTiles, &trapTiles);
+		// Sprite sprite(glm::vec2(0.f, 80.f), "resources/sprites/main_hero.png", baseTiles, trapTiles);
 
-		for (auto tile: baseTiles) {
-			tile->initObject(view.getProjection());
-		}
-		for (auto tile: trapTiles) {
-			tile->initObject(view.getProjection());
-		}
-
-		Sprite sprite(glm::vec2(0.f, 80.f), "resources/main_hero.png", baseTiles, trapTiles);
-		sprite.initObject(view.getProjection());
+		Label label(glm::vec2(50.f, 50.f), "fuck", "resources/fonts/arial.ttf", 80, glm::vec4(0, 0, 1, 1));
 
 		do {
-			window.clearWindow();
-			sprite.move(window.getWindow());
-			for (auto tile: baseTiles) {
-				tile->draw();
-			}
-			for (auto tile: trapTiles) {
-				tile->draw(&sprite);
-			}
-			sprite.draw();
-			window.refreshWindow();
-		} while (window.shouldBeOpened());
+			Window::clearWindow();
+			label.draw();
+			// sprite.move(Window::getWindow());
+			// for (auto tile: baseTiles) {
+			// 	tile->draw();
+			// }
+			// for (auto tile: trapTiles) {
+			// 	tile->draw(&sprite);
+			// }
+			// sprite.draw();
+			Window::refreshWindow();
+		} while (Window::shouldBeOpened());
+
+		Window::closeWindow();
 
 		return 0;
 
