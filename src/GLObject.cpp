@@ -8,32 +8,32 @@
 
 #include <src/GLObject.hpp>
 
+#include <src/BaseObject.cpp>
 #include <src/Helper.cpp>
 #include <src/Shader.cpp>
 #include <src/View.cpp>
 
-GLObject::GLObject(glm::vec2 initPosition, std::string textureSource, std::string vertexShader, std::string fragShader): 
-    shader(vertexShader, fragShader)
+GLObject::GLObject(glm::vec2 initPosition, std::string textureSource):
+    BaseObject(initPosition, "src/vertexShader.glsl", "src/fragmentShader.glsl")
 {
     Helper::TextureData textureData = Helper::parseTexture(textureSource);
-    GLfloat* vertices = new GLfloat [18] {
+
+    // TODO: move to another module
+    glGenTextures(1, &this->texture);
+    glBindTexture(GL_TEXTURE_2D, this->texture);
+
+	GLenum format = textureData.channels == 3 ? GL_RGB : GL_RGBA;
+	glTexImage2D(GL_TEXTURE_2D, 0, format, textureData.width, textureData.height, 0, format, GL_UNSIGNED_BYTE, textureData.data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+    this->vertices = new GLfloat [18] {
+        initPosition.x, initPosition.y + textureData.height, 0.f,
         initPosition.x, initPosition.y, 0.f,
         initPosition.x + textureData.width, initPosition.y, 0.f,
-        initPosition.x + textureData.width, initPosition.y + textureData.height, 0.f,
 
-        initPosition.x + textureData.width, initPosition.y + textureData.height, 0.f,
         initPosition.x, initPosition.y + textureData.height, 0.f,
-        initPosition.x, initPosition.y, 0.f
-    };
-
-    this->texturePosition = new GLfloat [12] {
-        0.f, 0.f,
-        1.f, 0.f,
-		1.f, 1.f,
-
-        1.f, 1.f,
-		0.f, 1.f,
-        0.f, 0.f
+        initPosition.x + textureData.width, initPosition.y, 0.f,
+        initPosition.x + textureData.width, initPosition.y + textureData.height, 0.f
     };
 
     this->transformMatrix = glm::mat4(1.f);
@@ -43,16 +43,14 @@ GLObject::GLObject(glm::vec2 initPosition, std::string textureSource, std::strin
         initPosition.x + textureData.width, initPosition.y + textureData.height
     });
 
-    this->shader.initBuffers(vertices, this->texturePosition, textureData);
-    this->shader.setUniform<glm::mat4*>("projection", View::getProjection(), EnumUniformType::GLM_MAT4);
+    this->shader.initBuffers(this->vertices, this->texturePosition, 1);
     this->shader.setUniform<glm::mat4*>("transform", &(this->transformMatrix), EnumUniformType::GLM_MAT4);
 
     stbi_image_free(textureData.data);
-    delete[] vertices;
 }
 
 GLObject::~GLObject() {
-    delete[] this->texturePosition;
+    delete[] this->vertices;
 }
 
 Helper::RectCoordinates GLObject::getCurrentCoord() {
@@ -60,5 +58,6 @@ Helper::RectCoordinates GLObject::getCurrentCoord() {
 }
 
 void GLObject::draw() {
-    this->shader.runShader();
+    this->shader.setContext();
+    this->shader.runShader(this->texture, 0);
 }

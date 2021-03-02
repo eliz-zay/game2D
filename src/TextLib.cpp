@@ -27,7 +27,6 @@ void TextLib::initFont(std::string pFontSource, int size) {
             throw std::runtime_error("Label: Failed to load Glyph");
         }
 
-        // maybe move to texture generator
         unsigned int texture;
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
@@ -47,8 +46,6 @@ void TextLib::initFont(std::string pFontSource, int size) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        // end of texture generator
 
         Character* character = new Character {
             texture, 

@@ -5,21 +5,18 @@
 #include <GLFW/glfw3.h>
 #include <OpenGL/glu.h>
 
-#include <glm/glm.hpp>
-
+#include <src/BaseObject.hpp>
 #include <src/Helper.hpp>
-#include <src/Shader.hpp>
 
-class GLObject {
+class GLObject: public BaseObject {
     protected:
-        GLfloat* texturePosition;
+        GLuint texture;
         glm::mat4 transformMatrix;
 
-        Shader shader;
         Helper::RectCoordinates currentCoord;
 
     public:
-        GLObject(glm::vec2 initPosition, std::string textureSource, std::string vertexShader, std::string fragShader);
+        GLObject(glm::vec2 initPosition, std::string textureSource);
         ~GLObject();
 
         Helper::RectCoordinates getCurrentCoord();

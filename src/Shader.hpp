@@ -17,8 +17,7 @@ enum EnumUniformType {
 class Shader {
     private:
         GLuint programID;
-        GLuint vao, vboPosition, vboTexture, ebo;
-        GLuint texture;
+        GLuint vao, vboPosition, vboTexture;
         std::map<const char*, std::tuple<GLuint, EnumUniformType, std::any>> uniform;
 
     public:
@@ -26,10 +25,9 @@ class Shader {
         ~Shader();
 
         template <typename T> void setUniform(const char* name, T value, EnumUniformType valueType);
-        void initBuffers(GLfloat* vertices, GLfloat* texturePosition, Helper::TextureData textureData);
-        void initBuffers2(GLfloat* vertices, GLfloat* texturePosition, int size);
-        void runShader();
-        void runShader2(std::string text);
+        void initBuffers(GLfloat* vertices, GLfloat* texturePosition, int length);
+        void setContext();
+        void runShader(GLuint texture, int offset);
 };
 
 #endif

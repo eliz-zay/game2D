@@ -13,13 +13,15 @@ TrapTile::TrapTile(glm::vec2 initPosition, std::string textureSource, std::strin
 }
 
 void TrapTile::draw(Sprite* mainHero) {
+    this->shader.setContext();
+
     GLfloat x1 = (this->currentCoord.x1 + this->currentCoord.x0) / 2;
     GLfloat y1 = (this->currentCoord.y1 + this->currentCoord.y0) / 2;
     GLfloat x2 = (mainHero->getCurrentCoord().x1 + mainHero->getCurrentCoord().x0) / 2;
     GLfloat y2 = (mainHero->getCurrentCoord().y1 + mainHero->getCurrentCoord().y0) / 2;
 
     if (sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2)) <= 70) {
-        this->shader.runShader();
+        this->shader.runShader(this->texture, 0);
     } else {
         this->altTile.draw();
     }
