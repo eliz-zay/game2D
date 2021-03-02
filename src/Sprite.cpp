@@ -1,6 +1,7 @@
 #pragma once
 
 #include <src/Sprite.hpp>
+#include <src/Helper.hpp>
 
 #include <src/BaseTile.cpp>
 #include <src/TrapTile.cpp>

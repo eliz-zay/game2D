@@ -18,26 +18,26 @@ int main() {
 		View::setResolution(WINDOW_WIDTH, WINDOW_HEIGHT);
 		Window::initWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-		// std::vector<BaseTile*> baseTiles;
-		// std::vector<TrapTile*> trapTiles;
-		// std::vector<std::vector<char> > mazeData = MazeHelper::parseMazeData("resources/maze/maze_level_2.txt");
-		// MazeHelper::mazeDataToGLObjects(mazeData, &baseTiles, &trapTiles);
+		std::vector<BaseTile*> baseTiles;
+		std::vector<TrapTile*> trapTiles;
+		std::vector<std::vector<char> > mazeData = MazeHelper::parseMazeData("resources/maze/maze_level_2.txt");
+		MazeHelper::mazeDataToGLObjects(mazeData, &baseTiles, &trapTiles);
 
-		// Sprite sprite(glm::vec2(0.f, 80.f), "resources/sprites/main_hero.png", baseTiles, trapTiles);
+		Sprite sprite(glm::vec2(0.f, 80.f), "resources/sprites/main_hero.png", baseTiles, trapTiles);
 
-		Label label(glm::vec2(50.f, 50.f), "fuck", "resources/fonts/arial.ttf", 80, glm::vec4(0, 0, 1, 1));
+		// Label label(glm::vec2(50.f, 50.f), "fuck", "resources/fonts/arial.ttf", 80, glm::vec4(0, 0, 1, 1));
 
 		do {
 			Window::clearWindow();
-			label.draw();
-			// sprite.move(Window::getWindow());
-			// for (auto tile: baseTiles) {
-			// 	tile->draw();
-			// }
-			// for (auto tile: trapTiles) {
-			// 	tile->draw(&sprite);
-			// }
-			// sprite.draw();
+			// label.draw();
+			sprite.move(Window::getWindow());
+			for (auto tile: baseTiles) {
+				tile->draw();
+			}
+			for (auto tile: trapTiles) {
+				tile->draw(&sprite);
+			}
+			sprite.draw();
 			Window::refreshWindow();
 		} while (Window::shouldBeOpened());
 

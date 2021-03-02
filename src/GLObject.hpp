@@ -6,13 +6,14 @@
 #include <OpenGL/glu.h>
 
 #include <src/BaseObject.hpp>
+#include <src/ImageTexture.hpp>
 #include <src/Helper.hpp>
 
 class GLObject: public BaseObject {
     protected:
-        GLuint texture;
         glm::mat4 transformMatrix;
 
+        ImageTexture texture;
         Helper::RectCoordinates currentCoord;
 
     public:

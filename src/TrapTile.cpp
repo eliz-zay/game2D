@@ -21,7 +21,7 @@ void TrapTile::draw(Sprite* mainHero) {
     GLfloat y2 = (mainHero->getCurrentCoord().y1 + mainHero->getCurrentCoord().y0) / 2;
 
     if (sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2)) <= 70) {
-        this->shader.runShader(this->texture, 0);
+        this->shader.runShader(this->texture.getID(), 0);
     } else {
         this->altTile.draw();
     }

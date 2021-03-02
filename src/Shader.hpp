@@ -7,8 +7,6 @@
 #include <GL/glew.h>
 #include <OpenGL/glu.h>
 
-#include "Helper.cpp"
-
 enum EnumUniformType {
     GLM_MAT4,
     GLM_VEC4
