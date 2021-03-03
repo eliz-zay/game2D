@@ -5,7 +5,6 @@
 
 class View {
     private:
-        static int width, height;
         static glm::mat4 projection;
         
         View();

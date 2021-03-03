@@ -7,18 +7,21 @@
 
 class Window {
     private:
+        static int width, height;
         static GLFWwindow* window;
 
         Window();
         
     public:
-        static GLFWwindow* getWindow();
-        
         static void initWindow(int width, int height);
         static void clearWindow();
         static bool shouldBeOpened();
         static void refreshWindow();
         static void closeWindow();
+
+        static GLFWwindow* getWindow();
+        static int getWidth();
+        static int getHeight();
 };
 
 #endif

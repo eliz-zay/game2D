@@ -24,13 +24,13 @@ void Sprite::move() {
         this->currentCoord.y1 -= speed * 1.f;
     }
 
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS && this->currentCoord.y1 < WINDOW_HEIGHT && !this->isCollision(0, speed)) {
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS && this->currentCoord.y1 < Window::getHeight() && !this->isCollision(0, speed)) {
         this->transformMatrix = glm::translate(this->transformMatrix, glm::vec3(0.f, speed * 1.f, 0.f));
         this->currentCoord.y0 += speed * 1.f;
         this->currentCoord.y1 += speed * 1.f;
     }
 
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && this->currentCoord.x1 < WINDOW_WIDTH && !this->isCollision(speed, 0)) {
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && this->currentCoord.x1 < Window::getWidth() && !this->isCollision(speed, 0)) {
         this->transformMatrix = glm::translate(this->transformMatrix, glm::vec3(speed * 1.f, 0.f, 0.f));
         this->currentCoord.x0 += speed * 1.f;
         this->currentCoord.x1 += speed * 1.f;

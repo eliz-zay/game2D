@@ -6,13 +6,14 @@
 
 #include "Window.hpp"
 
+int Window::width = 0;
+int Window::height = 0;
 GLFWwindow* Window::window = nullptr;
 
-GLFWwindow* Window::getWindow() {
-	return Window::window;
-}
-
 void Window::initWindow(int width, int height) {
+	Window::width = width;
+	Window::height = height;
+
     if (!glfwInit()) {
 		throw std::runtime_error("Window: Failed to initialize GLFW");
 	}
@@ -58,4 +59,16 @@ bool Window::shouldBeOpened() {
 
 void Window::closeWindow() {
 	glfwTerminate();
+}
+
+GLFWwindow* Window::getWindow() {
+	return Window::window;
+}
+
+int Window::getWidth() {
+	return Window::width;
+}
+
+int Window::getHeight() {
+	return Window::height;
 }

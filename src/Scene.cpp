@@ -7,6 +7,7 @@
 #include <src/Sprite.cpp>
 #include <src/BaseTile.cpp>
 #include <src/TrapTile.cpp>
+#include <src/Label.cpp>
 #include <src/MazeHelper.cpp>
 #include <src/Label.cpp>
 
