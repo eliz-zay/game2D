@@ -5,6 +5,7 @@
 
 #include <src/BaseTile.cpp>
 #include <src/TrapTile.cpp>
+#include <src/Window.cpp>
 
 Sprite::Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<BaseTile*> baseTiles, std::vector<TrapTile*> trapTiles):
     GLObject(initPosition, textureSource)
@@ -13,7 +14,8 @@ Sprite::Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<Ba
     this->trapTiles = trapTiles;
 }
 
-void Sprite::move(GLFWwindow* window) {
+void Sprite::move() {
+    GLFWwindow* window = Window::getWindow();
     const GLfloat EPS = 0.0001;
     float speed = 3.0f;
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS && this->currentCoord.y0 > 0 && !this->isCollision(0, -speed)) {

@@ -19,7 +19,7 @@ class Sprite: public GLObject {
     public:
         Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<BaseTile*> baseTiles, std::vector<TrapTile*> trapTiles);
 
-        void move(GLFWwindow* window);
+        virtual void move();
 };
 
 #endif

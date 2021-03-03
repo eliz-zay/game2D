@@ -21,3 +21,7 @@ BaseObject::BaseObject(glm::vec2 initPosition, std::string vertexShader, std::st
 BaseObject::~BaseObject() {
     delete[] this->texturePosition;
 }
+
+void BaseObject::move() {
+    // Do nothing
+}
