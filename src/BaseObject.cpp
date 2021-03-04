@@ -22,6 +22,6 @@ BaseObject::~BaseObject() {
     delete[] this->texturePosition;
 }
 
-void BaseObject::move() {
+void BaseObject::move(double deltaTime) {
     // Do nothing
 }

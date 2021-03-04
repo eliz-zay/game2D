@@ -14,7 +14,7 @@ ImageTexture::ImageTexture(std::string source) {
     this->data = stbi_load(source.c_str(), &this->width, &this->height, &this->channels, 0);
 
 	if (!this->data) {
-		throw std::invalid_argument("Helper: Failed to load texture");
+		throw std::invalid_argument("ImageTexture: Failed to load texture");
 	}
 }
 

@@ -11,6 +11,7 @@
 #include <src/ImageTexture.cpp>
 #include <src/BaseTile.cpp>
 #include <src/TrapTile.cpp>
+#include <src/DoorTile.cpp>
 
 std::vector<std::vector<char> > MazeHelper::parseMazeData(std::string mazeFile) {
     std::vector<std::vector<char> > mazeData;
@@ -19,7 +20,6 @@ std::vector<std::vector<char> > MazeHelper::parseMazeData(std::string mazeFile) 
 
     file.open(mazeFile.c_str());
     if (!file.is_open()) {
-        std::cout << "Helper: Could not open file" << std::endl;
         throw std::invalid_argument("MazeHelper: Could not open file");
     }
 
@@ -34,7 +34,8 @@ std::vector<std::vector<char> > MazeHelper::parseMazeData(std::string mazeFile) 
 void MazeHelper::mazeDataToGLObjects(
     std::vector<std::vector<char> > mazeData,
     std::vector<BaseTile*>* baseTiles,
-    std::vector<TrapTile*>* trapTiles
+    std::vector<TrapTile*>* trapTiles,
+    std::vector<DoorTile*>* doorTiles
 ) {
     std::map<std::string, std::string> textureSources = MazeHelper::getTextureSources();
     // Here all tiles have the same size
@@ -77,11 +78,10 @@ void MazeHelper::mazeDataToGLObjects(
                     break;
                 }
                 case ('D'): {
-                    (*baseTiles).push_back(
-                        new BaseTile(
+                    (*doorTiles).push_back(
+                        new DoorTile(
                             glm::vec2(j * width * 1.f, i * height * 1.f),
-                            textureSources["door"],
-                            false
+                            textureSources["door"]
                         )
                     );
                     break;

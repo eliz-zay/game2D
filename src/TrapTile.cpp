@@ -5,6 +5,7 @@
 #include <src/Tile.cpp>
 #include <src/BaseTile.cpp>
 #include <src/Sprite.cpp>
+#include <src/Game.cpp>
 
 TrapTile::TrapTile(glm::vec2 initPosition, std::string textureSource, std::string altTextureSource):
     Tile(initPosition, textureSource),
@@ -20,7 +21,11 @@ void TrapTile::draw(Sprite* mainHero) {
     GLfloat x2 = (mainHero->getCurrentCoord().x1 + mainHero->getCurrentCoord().x0) / 2;
     GLfloat y2 = (mainHero->getCurrentCoord().y1 + mainHero->getCurrentCoord().y0) / 2;
 
-    if (sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2)) <= 70) {
+    double distance = sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
+
+    if (distance <= 20) {
+        Game::update(SceneChange::DEATH);
+    } else if (distance <= 70) {
         this->shader.runShader(this->texture.getID(), 0);
     } else {
         this->altTile.draw();

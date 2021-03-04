@@ -3,7 +3,7 @@
 
 namespace Helper {
     struct RectCoordinates {
-        GLfloat x0, y0, x1, y1;
+        double x0, y0, x1, y1;
     };
 }
 

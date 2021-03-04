@@ -16,7 +16,7 @@ class BaseObject {
         BaseObject(glm::vec2 initPosition, std::string vertexShader, std::string fragShader);
         ~BaseObject();
 
-        virtual void move();
+        virtual void move(double deltaTime);
         virtual void draw() = 0;
 };
 

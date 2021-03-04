@@ -3,10 +3,10 @@
 
 #include <glm/glm.hpp>
 
-#include <src/Window.cpp>
-#include <src/View.cpp>
 #include <src/BaseObject.hpp>
-#include <src/MazeHelper.cpp>
+#include <src/BaseTile.hpp>
+#include <src/TrapTile.hpp>
+#include <src/DoorTile.hpp>
 
 class Scene {
     private:
@@ -14,13 +14,14 @@ class Scene {
         std::vector<BaseObject*> baseObjects;
         std::vector<BaseTile*> baseTiles;
         std::vector<TrapTile*> trapTiles;
+        std::vector<DoorTile*> doorTiles;
         std::vector<std::vector<char> > mazeData;
     
     public:
         Scene(std::string name, std::string mazeSource, glm::vec2 initPosition);
         Scene(std::string name, std::string fontSource, glm::vec2 initPosition, std::string labelText, int size, glm::vec4 color);
 
-        void draw();
+        void draw(double deltaTime);
 };
 
 #endif

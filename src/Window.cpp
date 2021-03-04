@@ -41,7 +41,7 @@ void Window::initWindow(int width, int height) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glClearColor(0.5f, 0.2f, 0.2f, 0.0f);
+	glClearColor(0.f, 0.f, 0.f, 0.f);
 }
 
 void Window::clearWindow() {
@@ -71,4 +71,8 @@ int Window::getWidth() {
 
 int Window::getHeight() {
 	return Window::height;
+}
+
+double Window::getTime() {
+	return glfwGetTime();
 }

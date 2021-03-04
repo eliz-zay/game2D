@@ -22,6 +22,7 @@ class Window {
         static GLFWwindow* getWindow();
         static int getWidth();
         static int getHeight();
+        static double getTime();
 };
 
 #endif

@@ -27,7 +27,8 @@ Label::Label(glm::vec2 position, std::string text, std::string fontSource, int s
     for (int i = 0; i < text.size(); i++) {
         Character* ch = TextLib::getChar(text[i]);
 
-        float xpos = x;
+        // float xpos = x;
+        float xpos = x + ch->bearing.x;
         float ypos = y + this->size - ch->bearing.y;
 
         float w = ch->size.x;
