@@ -14,9 +14,10 @@ enum SceneChange {
 
 class Game {
     private:
-        static std::tuple<std::string, Scene*, int> activeScene;
+        static std::tuple<std::string, Scene*, int, int> activeScene;
         static std::map<std::string, Scene*> scenes;
-        static std::map<int, std::string> levelNames;
+        static std::map<int, std::string> levelScenes;
+        static std::map<int, std::string> levelIntros;
 
         Game();
 
@@ -26,8 +27,8 @@ class Game {
         static void end();
 
         static void setResolution(int width, int height);
-        static void addScene(std::string name, int level, Scene* scene);
-        static void setActiveScene(std::string name, int level = 0);
+        static void addScene(std::string name, int level, int levelIntro, Scene* scene);
+        static void setActiveScene(std::string name, int level = 0, int levelIntro = 0);
 };
 
 #endif

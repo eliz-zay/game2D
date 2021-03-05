@@ -6,22 +6,28 @@
 #include <src/View.cpp>
 #include <src/Scene.cpp>
 
-std::tuple<std::string, Scene*, int> Game::activeScene = {};
+std::tuple<std::string, Scene*, int, int> Game::activeScene = {};
 std::map<std::string, Scene*> Game::scenes = {};
-std::map<int, std::string> Game::levelNames = {};
+std::map<int, std::string> Game::levelScenes = {};
+std::map<int, std::string> Game::levelIntros = {};
 
 void Game::update(SceneChange sceneChange) {
     GLFWwindow* window = Window::getWindow();
 
     std::string name = std::get<0>(Game::activeScene);
-    int nextLevel = std::get<2>(Game::activeScene) + 1;
+    int level = std::get<2>(Game::activeScene);
+    int levelIntro = std::get<3>(Game::activeScene);
 
-    if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS && name == "Intro") {
-        Game::setActiveScene("Level_1", 1);
+    bool enterDown = Window::isKeyDown(Key::ENTER);
+
+    if (enterDown && name == "Intro") {
+        Game::setActiveScene(Game::levelIntros[1], 0, 1);
+    } else if (enterDown && levelIntro != 0) {
+        Game::setActiveScene(Game::levelScenes[levelIntro], levelIntro, 0);
     }
 
-    if (sceneChange == SceneChange::NEXT_LEVEL && (!Game::levelNames[nextLevel].empty())) {
-        Game::setActiveScene(Game::levelNames[nextLevel], nextLevel);
+    if (sceneChange == SceneChange::NEXT_LEVEL && (!Game::levelIntros[level + 1].empty())) {
+        Game::setActiveScene(Game::levelIntros[level + 1], 0, level + 1);
     } else if (sceneChange == SceneChange::NEXT_LEVEL || sceneChange == SceneChange::WIN) {
         Game::setActiveScene("Win");
     } else if (sceneChange == SceneChange::DEATH) {
@@ -40,11 +46,10 @@ void Game::play() {
         lastTime = currentTime;
         frames++;
         if (currentTime - lastTimeFPS >= 1.) {
-            std::cout << double(frames)<< std::endl;
+            std::cout << double(frames) << std::endl;
             frames = 0;
             lastTimeFPS += 1.;
         }
-
 
         Window::clearWindow();
         Game::update();
@@ -62,14 +67,16 @@ void Game::setResolution(int width, int height) {
     Window::initWindow(width, height);
 }
 
-void Game::addScene(std::string name, int level, Scene* scene) {
+void Game::addScene(std::string name, int level, int levelIntro, Scene* scene) {
     Game::scenes.insert({name, scene});
     if (level) {
-        Game::levelNames.insert({level, name});
+        Game::levelScenes.insert({level, name});
+    } else if (levelIntro) {
+        Game::levelIntros.insert({levelIntro, name});
     }
 }
 
-void Game::setActiveScene(std::string name, int level) {
-    Game::activeScene = {name, Game::scenes[name], level};
+void Game::setActiveScene(std::string name, int level, int levelIntro) {
+    Game::activeScene = {name, Game::scenes[name], level, levelIntro};
     Game::scenes[name]->activate();
 }

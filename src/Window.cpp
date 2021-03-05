@@ -9,10 +9,12 @@
 int Window::width = 0;
 int Window::height = 0;
 GLFWwindow* Window::window = nullptr;
+std::map<Key, bool> Window::keydown = {};
 
 void Window::initWindow(int width, int height) {
 	Window::width = width;
 	Window::height = height;
+	Window::keydown.insert({Key::ENTER, false});
 
     if (!glfwInit()) {
 		throw std::runtime_error("Window: Failed to initialize GLFW");
@@ -59,6 +61,23 @@ bool Window::shouldBeOpened() {
 
 void Window::closeWindow() {
 	glfwTerminate();
+}
+
+bool Window::isKeyDown(Key key) {
+	switch (key) {
+		case (Key::ENTER): {
+			if (glfwGetKey(Window::window, GLFW_KEY_ENTER) != GLFW_PRESS) {
+				Window::keydown[key] = false;
+				return false;
+			}
+
+			if (glfwGetKey(Window::window, GLFW_KEY_ENTER) == GLFW_PRESS && !Window::keydown[key]) {
+				Window::keydown[key] = true;
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 GLFWwindow* Window::getWindow() {
