@@ -14,7 +14,7 @@
 #include <src/View.cpp>
 
 GLObject::GLObject(glm::vec2 initPosition, std::string textureSource):
-    BaseObject(initPosition, "src/vertexShader.glsl", "src/fragmentShader.glsl"),
+    BaseObject("src/vertexShader.glsl", "src/fragmentShader.glsl"),
     texture(textureSource)
 {
     int width = this->texture.getWidth();

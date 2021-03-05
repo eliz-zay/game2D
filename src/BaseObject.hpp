@@ -13,7 +13,7 @@ class BaseObject {
         Shader shader;
 
     public:
-        BaseObject(glm::vec2 initPosition, std::string vertexShader, std::string fragShader);
+        BaseObject(std::string vertexShader, std::string fragShader);
         ~BaseObject();
 
         virtual void move(double deltaTime);

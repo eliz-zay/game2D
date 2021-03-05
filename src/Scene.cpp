@@ -10,6 +10,7 @@
 #include <src/DoorTile.cpp>
 #include <src/Label.cpp>
 #include <src/MazeHelper.cpp>
+#include <src/LabelManager.cpp>
 
 Scene::Scene(std::string name, std::string mazeSource, glm::vec2 initPosition) {
     this->name = name;
@@ -22,7 +23,19 @@ Scene::Scene(std::string name, std::string mazeSource, glm::vec2 initPosition) {
 
 Scene::Scene(std::string name, std::string fontSource, glm::vec2 initPosition, std::string labelText, int size, glm::vec4 color) {
     this->name = name;
-    this->baseObjects.push_back(new Label(initPosition, labelText, fontSource, size, color));
+
+    Label* label = LabelManager::createLabel(fontSource, color, this->name, initPosition, labelText, size);
+    this->baseObjects.push_back(label);
+}
+
+void Scene::activate() {
+    std::tuple<glm::vec2, std::string, glm::vec4> labelText = LabelManager::getSceneText(this->name);
+    if (std::get<1>(labelText) == "") {
+        // This is not a Label scene
+        return;
+    }
+
+    (dynamic_cast<Label*>(this->baseObjects[0])->setText(std::get<0>(labelText), std::get<1>(labelText), std::get<2>(labelText)));
 }
 
 void Scene::draw(double deltaTime) {

@@ -14,8 +14,9 @@ class Label: public BaseObject {
         glm::vec4 color;
 
     public:
-        Label(glm::vec2 position, std::string text, std::string fontSource, int size, glm::vec4 color);
+        Label(std::string fontSource, int size);
 
+        void setText(glm::vec2 position, std::string text, glm::vec4 color);
         virtual void draw();
 };
 

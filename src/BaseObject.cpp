@@ -2,7 +2,7 @@
 
 #include <src/BaseObject.hpp>
 
-BaseObject::BaseObject(glm::vec2 initPosition, std::string vertexShader, std::string fragShader):
+BaseObject::BaseObject(std::string vertexShader, std::string fragShader):
     shader(vertexShader, fragShader)
 {
     this->texturePosition = new GLfloat [12] {

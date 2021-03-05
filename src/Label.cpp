@@ -10,12 +10,17 @@
 #include <src/Shader.cpp>
 #include <src/TextLib.cpp>
 
-Label::Label(glm::vec2 position, std::string text, std::string fontSource, int size, glm::vec4 color):
-    BaseObject(position, "src/textVertexShader.glsl", "src/textFragmentShader.glsl")
+Label::Label(std::string fontSource, int size):
+    BaseObject("src/textVertexShader.glsl", "src/textFragmentShader.glsl")
 {
-    this->text = text;
     this->fontSource = fontSource;
     this->size = size;
+
+    TextLib::initFont(fontSource, this->size);
+}
+
+void Label::setText(glm::vec2 position, std::string text, glm::vec4 color) {
+    this->text = text;
     this->color = color;
 
     float x = position.x;
@@ -23,11 +28,9 @@ Label::Label(glm::vec2 position, std::string text, std::string fontSource, int s
     
     this->vertices = new GLfloat[text.size() * 18];
 
-    TextLib::initFont(fontSource, this->size);
     for (int i = 0; i < text.size(); i++) {
         Character* ch = TextLib::getChar(text[i]);
 
-        // float xpos = x;
         float xpos = x + ch->bearing.x;
         float ypos = y + this->size - ch->bearing.y;
 

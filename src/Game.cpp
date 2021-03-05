@@ -71,4 +71,5 @@ void Game::addScene(std::string name, int level, Scene* scene) {
 
 void Game::setActiveScene(std::string name, int level) {
     Game::activeScene = {name, Game::scenes[name], level};
+    Game::scenes[name]->activate();
 }
