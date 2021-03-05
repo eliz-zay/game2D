@@ -12,13 +12,11 @@
 #include <src/MazeHelper.cpp>
 #include <src/LabelManager.cpp>
 
-Scene::Scene(std::string name, std::string mazeSource, glm::vec2 initPosition) {
+Scene::Scene(std::string name, std::string mazeSource) {
     this->name = name;
 
     std::vector<std::vector<char> > mazeData = MazeHelper::parseMazeData(mazeSource);
-    MazeHelper::mazeDataToGLObjects(mazeData, &this->baseTiles, &this->trapTiles, &this->doorTiles);
-
-    this->baseObjects.push_back(new Sprite(initPosition, "resources/sprites/main_hero.png", this->baseTiles));
+    MazeHelper::mazeDataToGLObjects(mazeData, &this->baseObjects, &this->baseTiles, &this->trapTiles, &this->doorTiles);
 }
 
 Scene::Scene(std::string name, std::string fontSource, glm::vec2 initPosition, std::string labelText, int size, glm::vec4 color) {

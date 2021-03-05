@@ -13,9 +13,9 @@ int main() {
         Game::addScene("Intro_to_3", 0, 3, new Scene("Next_level_3", "resources/fonts/arial.ttf", glm::vec2(80.f, 70.f), "Level 3", 40, glm::vec4(1, 0.5, 0.5, 1)));
         Game::addScene("Win", 0, 0, new Scene("Win", "resources/fonts/arial.ttf", glm::vec2(80.f, 70.f), "Congrats!", 40, glm::vec4(1, 0.5, 0.5, 1)));
         Game::addScene("Death", 0, 0, new Scene("Death", "resources/fonts/arial.ttf", glm::vec2(80.f, 70.f), "Not your lucky day.", 40, glm::vec4(1, 0.5, 0.5, 1)));
-        Game::addScene("Level_1", 1, 0, new Scene("Level_1", "resources/maze/maze_level_1.txt", glm::vec2(0.f, 80.f)));
-        Game::addScene("Level_2", 2, 0, new Scene("Level_2", "resources/maze/maze_level_2.txt", glm::vec2(0.f, 80.f)));
-        Game::addScene("Level_3", 3, 0, new Scene("Level_3", "resources/maze/maze_level_3.txt", glm::vec2(0.f, 80.f)));
+        Game::addScene("Level_1", 1, 0, new Scene("Level_1", "resources/maze/maze_level_1.txt"));
+        Game::addScene("Level_2", 2, 0, new Scene("Level_2", "resources/maze/maze_level_2.txt"));
+        Game::addScene("Level_3", 3, 0, new Scene("Level_3", "resources/maze/maze_level_3.txt"));
 
         Game::setActiveScene("Intro");
 

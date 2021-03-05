@@ -14,8 +14,9 @@ class Sprite: public GLObject {
         bool isCollision(double dx, double dy);
         
     public:
-        Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<BaseTile*> baseTiles);
+        Sprite(glm::vec2 initPosition, std::string textureSource);
 
+        void setTiles(std::vector<BaseTile*> baseTiles);
         virtual void move(double deltaTime);
 };
 

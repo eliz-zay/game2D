@@ -20,7 +20,7 @@ class Scene {
         std::vector<std::vector<char> > mazeData;
     
     public:
-        Scene(std::string name, std::string mazeSource, glm::vec2 initPosition);
+        Scene(std::string name, std::string mazeSource);
         Scene(std::string name, std::string fontSource, glm::vec2 initPosition, std::string labelText, int size, glm::vec4 color);
 
         void activate();

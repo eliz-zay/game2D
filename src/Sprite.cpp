@@ -6,9 +6,12 @@
 #include <src/BaseTile.cpp>
 #include <src/Window.cpp>
 
-Sprite::Sprite(glm::vec2 initPosition, std::string textureSource, std::vector<BaseTile*> baseTiles):
+Sprite::Sprite(glm::vec2 initPosition, std::string textureSource):
     GLObject(initPosition, textureSource)
 {
+}
+
+void Sprite::setTiles(std::vector<BaseTile*> baseTiles) {
     this->baseTiles = baseTiles;
 }
 

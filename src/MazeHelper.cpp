@@ -9,6 +9,8 @@
 #include <src/MazeHelper.hpp>
 
 #include <src/ImageTexture.cpp>
+#include <src/BaseObject.cpp>
+#include <src/Sprite.cpp>
 #include <src/BaseTile.cpp>
 #include <src/TrapTile.cpp>
 #include <src/DoorTile.cpp>
@@ -33,6 +35,7 @@ std::vector<std::vector<char> > MazeHelper::parseMazeData(std::string mazeFile) 
 
 void MazeHelper::mazeDataToGLObjects(
     std::vector<std::vector<char> > mazeData,
+    std::vector<BaseObject*>* sprites,
     std::vector<BaseTile*>* baseTiles,
     std::vector<TrapTile*>* trapTiles,
     std::vector<DoorTile*>* doorTiles
@@ -47,6 +50,14 @@ void MazeHelper::mazeDataToGLObjects(
     for (int i = 0; i < mazeData.size(); i++) {
         for (int j = 0; j < mazeData[i].size(); j++) {
             switch (mazeData[i][j]) {
+                case ('@'): {
+                    (*sprites).push_back(
+                        new Sprite(
+                            glm::vec2(j * width * 1.f, i * height * 1.f), 
+                            textureSources["main_hero"]
+                        )
+                    );
+                }
                 case ('.'): {
                     (*baseTiles).push_back(
                         new BaseTile(
@@ -77,7 +88,7 @@ void MazeHelper::mazeDataToGLObjects(
                     );
                     break;
                 }
-                case ('D'): {
+                case ('x'): {
                     (*doorTiles).push_back(
                         new DoorTile(
                             glm::vec2(j * width * 1.f, i * height * 1.f),
@@ -89,10 +100,15 @@ void MazeHelper::mazeDataToGLObjects(
             }
         }
     }
+
+    for (auto sprite: *sprites) {
+        dynamic_cast<Sprite*>(sprite)->setTiles(*baseTiles);
+    }
 }
 
 std::map<std::string, std::string> MazeHelper::getTextureSources() {
     std::map<std::string, std::string> textureSources;
+    textureSources.insert({"main_hero", "resources/sprites/main_hero.png"});
     textureSources.insert({"floor", "resources/floor/floor.jpg"});
 	textureSources.insert({"wall", "resources/walls/wall.jpg"});
     textureSources.insert({"door", "resources/doors/portal.jpg"});
