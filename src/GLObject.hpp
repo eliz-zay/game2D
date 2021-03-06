@@ -3,7 +3,6 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <OpenGL/glu.h>
 
 #include <src/BaseObject.hpp>
 #include <src/ImageTexture.hpp>

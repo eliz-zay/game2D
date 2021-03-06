@@ -25,6 +25,7 @@ void TrapTile::draw(Sprite* mainHero) {
     double distance = sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
 
     if (distance <= 20) {
+        this->bufferManager.run(this->texture->getID(), 0);
         Game::update(SceneChange::DEATH);
     } else if (distance <= 70) {
         this->bufferManager.run(this->texture->getID(), 0);
