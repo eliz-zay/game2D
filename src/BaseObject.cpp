@@ -25,7 +25,7 @@ void BaseObject::addScene(Scene* scene) {
 }
 
 void BaseObject::initObject() {
-    this->setUniform<glm::mat4*>("projection", View::getProjection(), EnumUniformType::GLM_MAT4);
+	this->setUniform<glm::mat4*>("resultMatrix", View::getResultMatrix(), EnumUniformType::GLM_MAT4);
 }
 
 template <typename T>

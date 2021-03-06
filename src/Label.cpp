@@ -58,7 +58,7 @@ void Label::setText(glm::vec2 position, std::string text, glm::vec4 color) {
 }
 
 void Label::initObject() {
-    this->setUniform<glm::mat4*>("projection", View::getProjection(), EnumUniformType::GLM_MAT4);
+    this->setUniform<glm::mat4*>("resultMatrix", View::getProjection(), EnumUniformType::GLM_MAT4);
     this->setUniform<glm::vec4*>("textColor", &(this->color), EnumUniformType::GLM_VEC4);
 }
 

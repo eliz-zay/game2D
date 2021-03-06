@@ -5,7 +5,6 @@
 #include <any>
 
 #include <GL/glew.h>
-#include <OpenGL/glu.h>
 
 class BufferManager {
     private:

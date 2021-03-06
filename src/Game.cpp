@@ -72,8 +72,8 @@ void Game::setResolution(int width, int height) {
 }
 
 void Game::setTextureSources() {
-    Game::textureSources.insert({"main_hero", "resources/sprites/main_hero.png"});
-    Game::textureSources.insert({"floor", "resources/floor/floor.jpg"});
+    Game::textureSources.insert({"main_hero", "resources/sprites/main_hero1.png"});
+    Game::textureSources.insert({"floor", "resources/floor/plain_floor.jpg"});
 	Game::textureSources.insert({"wall", "resources/walls/wall.jpg"});
     Game::textureSources.insert({"door", "resources/doors/portal.jpg"});
     Game::textureSources.insert({"trap", "resources/other/chemicals.png"});

@@ -5,7 +5,7 @@
 
 int main() {
     try {
-        Game::setResolution(2560, 2560);
+        Game::setResolution(800, 800);
 
         Game::setTextureSources();
         Game::loadTextures();

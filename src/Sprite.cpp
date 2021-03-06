@@ -26,13 +26,13 @@ void Sprite::move(double deltaTime) {
         this->currentCoord.y1 -= deltaTime * speed;
     }
 
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS && this->currentCoord.y1 < Window::getHeight() && !this->isCollision(0, deltaTime * speed)) {
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS && !this->isCollision(0, deltaTime * speed)) {
         this->transformMatrix = glm::translate(this->transformMatrix, glm::vec3(0.f, deltaTime * speed, 0.f));
         this->currentCoord.y0 += deltaTime * speed;
         this->currentCoord.y1 += deltaTime * speed;
     }
 
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && this->currentCoord.x1 < Window::getWidth() && !this->isCollision(deltaTime * speed, 0)) {
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && !this->isCollision(deltaTime * speed, 0)) {
         this->transformMatrix = glm::translate(this->transformMatrix, glm::vec3(deltaTime * speed, 0.f, 0.f));
         this->currentCoord.x0 += deltaTime * speed;
         this->currentCoord.x1 += deltaTime * speed;
@@ -43,6 +43,11 @@ void Sprite::move(double deltaTime) {
         this->currentCoord.x0 -= deltaTime * speed;
         this->currentCoord.x1 -= deltaTime * speed;
     }
+
+    GLfloat x = (this->currentCoord.x1 + this->currentCoord.x0) / 2;
+    GLfloat y = (this->currentCoord.y1 + this->currentCoord.y0) / 2;
+
+    View::move(glm::vec2(x, y));
 }
 
 bool Sprite::isCollision(double dx, double dy) {
