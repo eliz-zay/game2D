@@ -19,7 +19,7 @@ void Sprite::move(double deltaTime) {
     GLFWwindow* window = Window::getWindow();
 
     deltaTime /= 20;
-    float speed = 3.f;
+    float speed = 4.f;
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS && this->currentCoord.y0 > 0 && !this->isCollision(0, -deltaTime * speed)) {
         this->transformMatrix = glm::translate(this->transformMatrix, glm::vec3(0.f, -deltaTime * speed, 0.f));
         this->currentCoord.y0 -= deltaTime * speed;
