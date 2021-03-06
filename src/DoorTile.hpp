@@ -9,7 +9,7 @@ class DoorTile: public Tile {
         void isOpened(Sprite* mainHero);
 
     public:
-        DoorTile(glm::vec2 initPosition, std::string textureSource);
+        DoorTile(glm::vec2 initPosition, ImageTexture* texture);
 
         virtual void draw(Sprite* mainHero);
 };

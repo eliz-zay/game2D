@@ -10,15 +10,16 @@
 
 #include <src/BaseObject.cpp>
 #include <src/ImageTexture.cpp>
-#include <src/Shader.cpp>
+#include <src/BufferManager.cpp>
 #include <src/View.cpp>
 
-GLObject::GLObject(glm::vec2 initPosition, std::string textureSource):
-    BaseObject("src/vertexShader.glsl", "src/fragmentShader.glsl"),
-    texture(textureSource)
+GLObject::GLObject(glm::vec2 initPosition, ImageTexture* texture):
+    BaseObject()
 {
-    int width = this->texture.getWidth();
-    int height = this->texture.getHeight();
+    this->texture = texture;
+
+    int width = this->texture->getWidth();
+    int height = this->texture->getHeight();
 
     this->vertices = new GLfloat [18] {
         initPosition.x, initPosition.y + height, 0.f,
@@ -37,9 +38,7 @@ GLObject::GLObject(glm::vec2 initPosition, std::string textureSource):
         initPosition.x + width, initPosition.y + height
     });
 
-    this->texture.createTexture();
-    this->shader.initBuffers(this->vertices, this->texturePosition, 1);
-    this->shader.setUniform<glm::mat4*>("transform", &(this->transformMatrix), EnumUniformType::GLM_MAT4);
+    this->bufferManager.initBuffers(this->vertices, this->texturePosition, 1);
 }
 
 GLObject::~GLObject() {
@@ -50,7 +49,13 @@ Helper::RectCoordinates GLObject::getCurrentCoord() {
     return this->currentCoord;
 }
 
+void GLObject::initObject() {
+    this->setUniform<glm::mat4*>("projection", View::getProjection(), EnumUniformType::GLM_MAT4);
+    this->setUniform<glm::mat4*>("transform", &(this->transformMatrix), EnumUniformType::GLM_MAT4);
+}
+
 void GLObject::draw() {
-    this->shader.setContext();
-    this->shader.runShader(this->texture.getID(), 0);
+    this->updateUniform();
+    this->bufferManager.setContext();
+    this->bufferManager.run(this->texture->getID(), 0);
 }

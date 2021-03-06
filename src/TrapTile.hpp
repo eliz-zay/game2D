@@ -9,10 +9,10 @@ class Sprite;
 
 class TrapTile: public Tile {
     private:
-        BaseTile altTile;
+        BaseTile* altTile;
 
     public:
-        TrapTile(glm::vec2 initPosition, std::string textureSource, std::string altTextureSource);
+        TrapTile(glm::vec2 initPosition, ImageTexture* texture, ImageTexture* altTexture);
 
         virtual void draw(Sprite* mainHero);
 };

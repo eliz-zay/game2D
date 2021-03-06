@@ -13,14 +13,15 @@ class GLObject: public BaseObject {
     protected:
         glm::mat4 transformMatrix;
 
-        ImageTexture texture;
+        ImageTexture* texture;
         Helper::RectCoordinates currentCoord;
 
     public:
-        GLObject(glm::vec2 initPosition, std::string textureSource);
+        GLObject(glm::vec2 initPosition, ImageTexture* texture);
         ~GLObject();
 
         Helper::RectCoordinates getCurrentCoord();
+        virtual void initObject();
         virtual void draw();
 };
 

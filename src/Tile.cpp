@@ -4,7 +4,7 @@
 
 #include <src/GLObject.cpp>
 
-Tile::Tile(glm::vec2 initPosition, std::string textureSource): 
-    GLObject(initPosition, textureSource) 
+Tile::Tile(glm::vec2 initPosition, ImageTexture* texture): 
+    GLObject(initPosition, texture) 
 {
 }

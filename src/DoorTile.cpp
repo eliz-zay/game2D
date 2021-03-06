@@ -6,8 +6,8 @@
 #include <src/Tile.cpp>
 #include <src/Sprite.cpp>
 
-DoorTile::DoorTile(glm::vec2 initPosition, std::string textureSource):
-    Tile(initPosition, textureSource)
+DoorTile::DoorTile(glm::vec2 initPosition, ImageTexture* texture):
+    Tile(initPosition, texture)
 {
 }
 
@@ -23,7 +23,8 @@ void DoorTile::isOpened(Sprite* mainHero) {
 }
 
 void DoorTile::draw(Sprite* mainHero) {
-    this->shader.setContext();
-    this->shader.runShader(this->texture.getID(), 0);
+    this->updateUniform();
+    this->bufferManager.setContext();
+    this->bufferManager.run(this->texture->getID(), 0);
     this->isOpened(mainHero);
 }

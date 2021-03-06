@@ -8,6 +8,7 @@
 
 #include <src/MazeHelper.hpp>
 
+#include <src/Game.cpp>
 #include <src/ImageTexture.cpp>
 #include <src/BaseObject.cpp>
 #include <src/Sprite.cpp>
@@ -40,12 +41,15 @@ void MazeHelper::mazeDataToGLObjects(
     std::vector<TrapTile*>* trapTiles,
     std::vector<DoorTile*>* doorTiles
 ) {
-    std::map<std::string, std::string> textureSources = MazeHelper::getTextureSources();
+    ImageTexture* floor = Game::getTexture("floor");
+    ImageTexture* wall = Game::getTexture("wall");
+    ImageTexture* door = Game::getTexture("door");
+    ImageTexture* trap = Game::getTexture("trap");
+    ImageTexture* mainHero = Game::getTexture("main_hero");
+    
     // Here all tiles have the same size
-    ImageTexture texture(textureSources["floor"]);
-
-    int width = texture.getWidth();
-    int height = texture.getHeight();
+    int width = floor->getWidth();
+    int height = floor->getHeight();
 
     for (int i = 0; i < mazeData.size(); i++) {
         for (int j = 0; j < mazeData[i].size(); j++) {
@@ -53,8 +57,8 @@ void MazeHelper::mazeDataToGLObjects(
                 case ('@'): {
                     (*sprites).push_back(
                         new Sprite(
-                            glm::vec2(j * width * 1.f, i * height * 1.f), 
-                            textureSources["main_hero"]
+                            glm::vec2(j * width * 1.f, i * height * 1.f),
+                            mainHero
                         )
                     );
                 }
@@ -62,7 +66,7 @@ void MazeHelper::mazeDataToGLObjects(
                     (*baseTiles).push_back(
                         new BaseTile(
                             glm::vec2(j * width * 1.f, i * height * 1.f), 
-                            textureSources["floor"], 
+                            floor, 
                             false
                         )
                     );
@@ -72,7 +76,7 @@ void MazeHelper::mazeDataToGLObjects(
                     (*baseTiles).push_back(
                         new BaseTile(
                             glm::vec2(j * width * 1.f, i * height * 1.f), 
-                            textureSources["wall"], 
+                            wall, 
                             true
                         )
                     ); 
@@ -82,8 +86,8 @@ void MazeHelper::mazeDataToGLObjects(
                     (*trapTiles).push_back(
                         new TrapTile(
                             glm::vec2(j * width * 1.f, i * height * 1.f),
-                            textureSources["trap"],
-                            textureSources["floor"]
+                            trap,
+                            floor
                         )
                     );
                     break;
@@ -92,7 +96,7 @@ void MazeHelper::mazeDataToGLObjects(
                     (*doorTiles).push_back(
                         new DoorTile(
                             glm::vec2(j * width * 1.f, i * height * 1.f),
-                            textureSources["door"]
+                            door
                         )
                     );
                     break;
@@ -104,15 +108,4 @@ void MazeHelper::mazeDataToGLObjects(
     for (auto sprite: *sprites) {
         dynamic_cast<Sprite*>(sprite)->setTiles(*baseTiles);
     }
-}
-
-std::map<std::string, std::string> MazeHelper::getTextureSources() {
-    std::map<std::string, std::string> textureSources;
-    textureSources.insert({"main_hero", "resources/sprites/main_hero.png"});
-    textureSources.insert({"floor", "resources/floor/floor.jpg"});
-	textureSources.insert({"wall", "resources/walls/wall.jpg"});
-    textureSources.insert({"door", "resources/doors/portal.jpg"});
-    textureSources.insert({"trap", "resources/other/chemicals.png"});
-
-    return textureSources;
 }

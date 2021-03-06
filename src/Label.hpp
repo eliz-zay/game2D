@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include <src/BaseObject.hpp>
-#include <src/Shader.hpp>
+#include <src/BufferManager.hpp>
 
 class Label: public BaseObject {
     private:
@@ -17,6 +17,7 @@ class Label: public BaseObject {
         Label(std::string fontSource, int size);
 
         void setText(glm::vec2 position, std::string text, glm::vec4 color);
+        virtual void initObject();
         virtual void draw();
 };
 

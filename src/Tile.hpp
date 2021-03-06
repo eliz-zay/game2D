@@ -5,7 +5,7 @@
 
 class Tile: public GLObject {
     public:
-        Tile(glm::vec2 initPosition, std::string textureSource);
+        Tile(glm::vec2 initPosition, ImageTexture* texture);
 };
 
 #endif

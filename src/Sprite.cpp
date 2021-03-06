@@ -6,8 +6,8 @@
 #include <src/BaseTile.cpp>
 #include <src/Window.cpp>
 
-Sprite::Sprite(glm::vec2 initPosition, std::string textureSource):
-    GLObject(initPosition, textureSource)
+Sprite::Sprite(glm::vec2 initPosition, ImageTexture* texture):
+    GLObject(initPosition, texture)
 {
 }
 

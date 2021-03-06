@@ -8,7 +8,7 @@ class BaseTile: public Tile {
         bool wall;  
         
     public:
-        BaseTile(glm::vec2 initPosition, std::string textureSource, bool wall);
+        BaseTile(glm::vec2 initPosition, ImageTexture* texture, bool wall);
 
         bool isWall();
 };

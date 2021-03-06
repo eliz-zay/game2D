@@ -5,11 +5,15 @@
 #include <src/Window.cpp>
 #include <src/View.cpp>
 #include <src/Scene.cpp>
+#include <src/ImageTexture.cpp>
 
+std::map<std::string, std::string> Game::textureSources = {};
+std::map<std::string, ImageTexture*> Game::imageTextures = {};
 std::tuple<std::string, Scene*, int, int> Game::activeScene = {};
 std::map<std::string, Scene*> Game::scenes = {};
 std::map<int, std::string> Game::levelScenes = {};
 std::map<int, std::string> Game::levelIntros = {};
+
 
 void Game::update(SceneChange sceneChange) {
     GLFWwindow* window = Window::getWindow();
@@ -46,7 +50,7 @@ void Game::play() {
         lastTime = currentTime;
         frames++;
         if (currentTime - lastTimeFPS >= 1.) {
-            std::cout << double(frames) << std::endl;
+            std::cout << double(frames) << " fps" << std::endl;
             frames = 0;
             lastTimeFPS += 1.;
         }
@@ -65,6 +69,27 @@ void Game::end() {
 void Game::setResolution(int width, int height) {
     View::setResolution(width, height);
     Window::initWindow(width, height);
+}
+
+void Game::setTextureSources() {
+    Game::textureSources.insert({"main_hero", "resources/sprites/main_hero.png"});
+    Game::textureSources.insert({"floor", "resources/floor/floor.jpg"});
+	Game::textureSources.insert({"wall", "resources/walls/wall.jpg"});
+    Game::textureSources.insert({"door", "resources/doors/portal.jpg"});
+    Game::textureSources.insert({"trap", "resources/other/chemicals.png"});
+}
+
+void Game::loadTextures() {
+    for (auto kv: Game::textureSources) {
+        Game::imageTextures.insert({kv.first, new ImageTexture(kv.second)});
+    }
+    for (auto kv: Game::imageTextures) {
+        kv.second->createTexture();
+    }
+}
+
+ImageTexture* Game::getTexture(std::string name) {
+    return Game::imageTextures[name];
 }
 
 void Game::addScene(std::string name, int level, int levelIntro, Scene* scene) {

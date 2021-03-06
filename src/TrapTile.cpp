@@ -7,14 +7,15 @@
 #include <src/Sprite.cpp>
 #include <src/Game.cpp>
 
-TrapTile::TrapTile(glm::vec2 initPosition, std::string textureSource, std::string altTextureSource):
-    Tile(initPosition, textureSource),
-    altTile(initPosition, altTextureSource, false)
+TrapTile::TrapTile(glm::vec2 initPosition, ImageTexture* texture, ImageTexture* altTexture):
+    Tile(initPosition, texture)
 {
+    altTile = new BaseTile(initPosition, altTexture, false);
 }
 
 void TrapTile::draw(Sprite* mainHero) {
-    this->shader.setContext();
+    this->updateUniform();
+    this->bufferManager.setContext();
 
     GLfloat x1 = (this->currentCoord.x1 + this->currentCoord.x0) / 2;
     GLfloat y1 = (this->currentCoord.y1 + this->currentCoord.y0) / 2;
@@ -26,8 +27,8 @@ void TrapTile::draw(Sprite* mainHero) {
     if (distance <= 20) {
         Game::update(SceneChange::DEATH);
     } else if (distance <= 70) {
-        this->shader.runShader(this->texture.getID(), 0);
+        this->bufferManager.run(this->texture->getID(), 0);
     } else {
-        this->altTile.draw();
+        this->altTile->draw();
     }
 }
